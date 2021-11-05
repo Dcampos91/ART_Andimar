@@ -1,0 +1,38 @@
+
+header{
+    text-align: center;
+    border-bottom: rgb(255, 255, 255) dashed 1px;
+}
+
+header p {
+    padding: 0;
+    margin-top: 5px;
+    color: #f06226;
+}
+
+section{
+    min-height: 410px;
+}
+input[type='submit']{
+    background: #f06226;
+    border: 0;
+    color: #fff;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+#resultado h3{
+    background: #f06226;
+    padding: 10px;
+    margin: 10px 0;
+    
+}
+#resultado span{
+    color: rgb(252, 252, 252);
+    font-weight: bold;
+    
+}
+h3{
+    color: rgb(252, 252, 252); 
+}
+
+

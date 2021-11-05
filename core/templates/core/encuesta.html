@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/style.css">
+    <title>Análisis de Riesgos de la Tarea - ART</title>
+</head>
+
+<body>
+    <div class="container">
+        <br>
+        <center>
+            <img src="https://cdn.vlnradio.cl/wp-content/uploads/2019/02/Buses-nueva-andimar-vip6-768x306.jpg"
+                alt="Responsive image" width="50%" height="10%">
+        </center>
+        <div style="text-align:center">
+            <hr>
+            <h1>Análisis de Riesgos de la Tarea - ART </h1>
+            <hr>
+        </div>
+
+        <div style="text-align:center" class="alert alert-info" role="alert">
+            ATENCIÓN TRIPULACIÓN! <br>
+            Si no aparecen tus datos en la lista, favor seleccionar No listado.
+        </div>
+
+
+        <div style="width: 50%;">
+            <label for="">Postura</label>
+            <div class="dropdown">
+                <select class="form-select" name="select" id="postura">
+                    <option selected>Seleccionar Postura</option>
+                    {% for elemento in listado %}
+                    <option value="Postura" data-id="{{elemento.id}}" data-idconductor="{{elemento.id_conductor}}"
+                        data-idconductor2="{{elemento.id_conductor2}}" data-idauxiliar="{{elemento.id_auxiliar}}"
+                        data-idbus="{{elemento.id_bus}}" data-conductor="{{elemento.nombre_conductor}}"
+                        data-conductordos="{{elemento.nombreconductor2}}" data-auxiliar="{{elemento.nombre_auxiliar}}"
+                        data-bus="{{elemento.bus}}">
+                        {{elemento.nombre_postura}} </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <form action="">
+                <div style="display: none;">
+                    <label for="">ID </label>
+                    <input id="id" type="text" class="form-control" placeholder="ID" name="id " readonly>
+                    <label for="">ID Conductor</label>
+                    <input id="idconductor" type="text" class="form-control" placeholder="ID Conductor"
+                        name="id conductor" readonly>
+                    <label for="">ID Conductor 2</label>
+                    <input id="idconductor2" type="text" class="form-control" placeholder="ID Conductor 2"
+                        name="id conductor 2" readonly>
+                    <label for="">ID Auxiliar</label>
+                    <input id="idauxiliar" type="text" class="form-control" placeholder="ID Auxiliar" name="id auxiliar"
+                        readonly>
+                    <label for="">ID Bus</label>
+                    <input id="idbus" type="text" class="form-control" placeholder="ID Bus" name="id auxiliar" readonly>
+                </div>
+                <br>
+                <label for="">Conductor</label>
+                <input id="conductor" type="text" class="form-control" placeholder="Nombre" name="nombre conductor"
+                    readonly>
+                <br>
+
+                <label for="">Conductor 2</label>
+                <input id="conductordos" type="text" class="form-control" placeholder="Nombre" name="nombre conductor 2"
+                    readonly>
+
+
+
+                <br>
+                <label for="">Auxiliar</label>
+
+                <input id="auxiliar" type="text" class="form-control" placeholder="Nombre" name="nombre auxiliar"
+                    readonly>
+
+                <br>
+                <label for="">N°Bus</label>
+                <input id="bus" type="text" class="form-control" placeholder="1006" name="rubro" readonly>
+            </form>
+
+            <br>
+        </div>
+
+
+        <section>
+            <hr>
+            <div id="resultado"></div>
+            <form name="quizForm" onsubmit="return verificarRespuestas()">
+                <div style="text-align:center">
+                    <hr>
+                    <h5>A. REVISIÓN DE MÁQUINA / PERMISOS (Si es "NO", corregir el estado del item antes de iniciar la
+                        tarea)
+                    </h5>
+                    <hr>
+                </div>
+                <hr />
+                <div class="form-row">
+                    <div class="col-sm-12 col-xl-12">
+                        <div class="table-responsive">
+                            <table class="table" id="tabla1">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Items de Control</th>
+                                        <th>Respuesta</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>1</strong></td>
+                                        <td><strong>Revisó que los documentos del Bus se encuentren al día (permiso de
+                                                circulación, revisión técnicas, seguro obligatorio)</strong></td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="p1" id="1" value="SI"
+                                                    checked>
+                                                <label class="form-check-label" for="1">
+                                                    SI
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="p1" id="2" value="NO"
+                                                    checked>
+                                                <label class="form-check-label" for="2">
+                                                    NO
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><strong>2</strong></td>
+                                        <td><strong>Considera que su Máquina está en condiciones de operar</strong></td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="p2" id="3" value="SI"
+                                                    checked>
+                                                <label class="form-check-label" for="3">
+                                                    SI
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="p2" id="4" value="NO"
+                                                    checked>
+                                                <label class="form-check-label" for="4">
+                                                    NO
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>3</strong></td>
+                                        <td><strong>Revisó el Estado de los neumáticos</strong></td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="p3" id="5" value="SI"
+                                                    checked>
+                                                <label class="form-check-label" for="5">
+                                                    SI
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="p3" id="6" value="NO"
+                                                    checked>
+                                                <label class="form-check-label" for="6">
+                                                    NO
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>4</strong></td>
+                                        <td><strong>Revisó que todas las Luces esten operativas</strong><br></td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="p4" id="7" value="SI"
+                                                    checked>
+                                                <label class="form-check-label" for="7">
+                                                    SI
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="p4" id="8" value="NO"
+                                                    checked>
+                                                <label class="form-check-label" for="8">
+                                                    NO
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>5</strong></td>
+                                        <td><strong>Revisó que los Indicadores de los niveles de combustible y
+                                                temperatura
+                                                estén
+                                                Operativos</strong>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="p5" id="9" value="SI"
+                                                    checked>
+                                                <label class="form-check-label" for="9">
+                                                    SI
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="p5" id="10"
+                                                    value="NO" checked>
+                                                <label class="form-check-label" for="10">
+                                                    NO
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>6</strong></td>
+                                        <td><strong>Revisó que los accesorios se encuentren disponibles y en buen
+                                                estado</strong> (extintor, botiquín, chaleco de seguridad, triángulo)
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="p6" id="11"
+                                                    value="SI" checked>
+                                                <label class="form-check-label" for="11">
+                                                    SI
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="p6" id="12"
+                                                    value="NO" checked>
+                                                <label class="form-check-label" for="12">
+                                                    NO
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <hr>
+                        <h5 class="text-center">B. REVISIÓN DE ESTADO DEL CONDUCTOR (Si es "NO", corregir el estado del
+                            ítem
+                            antes de iniciar la tarea).</h5>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-12 col-xl-12">
+                            <div class="table-responsive">
+                                <table class="table" id="tabla2">
+                                    <thead>
+                                        <tr>
+                                            <th>N°</th>
+                                            <th>Items de Control</th>
+                                            <th>Respuesta</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>7</strong></td>
+                                            <td><strong>Se encuentra con su documentación al día (Licencia de
+                                                    Conducir)</strong>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="p7" id="13"
+                                                        value="SI" checked>
+                                                    <label class="form-check-label" for="13">
+                                                        SI
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="p7" id="14"
+                                                        value="NO" checked>
+                                                    <label class="form-check-label" for="14">
+                                                        NO
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>8</strong></td>
+                                            <td><strong>Sufre de algún problema cardiaco u otro</strong></td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="p8" id="15"
+                                                        value="SI" checked>
+                                                    <label class="form-check-label" for="15">
+                                                        SI
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="p8" id="16"
+                                                        value="NO" checked>
+                                                    <label class="form-check-label" for="16">
+                                                        NO
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>9</strong></td>
+                                            <td><strong>Ha consumido alguna Droga , Alcohol y/o Medicamento que pueda
+                                                    afectar su
+                                                    conducción normal</strong></td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="p9" id="17"
+                                                        value="SI" checked>
+                                                    <label class="form-check-label" for="17">
+                                                        SI
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="p9" id="18"
+                                                        value="NO" checked>
+                                                    <label class="form-check-label" for="18">
+                                                        NO
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>10</strong></td>
+                                            <td><strong>Se siente en buenas condiciones de realizar el
+                                                    servicio</strong><br>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="p10" id="19"
+                                                        value="SI" checked>
+                                                    <label class="form-check-label" for="19">
+                                                        SI
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="p10" id="20"
+                                                        value="NO" checked>
+                                                    <label class="form-check-label" for="20">
+                                                        NO
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>11</strong></td>
+                                            <td><strong>Conoce el Procedimiento que define las Responsabilidades del
+                                                    Conductor</strong>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="p11" id="21"
+                                                        value="SI" checked>
+                                                    <label class="form-check-label" for="21">
+                                                        SI
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="p11" id="22"
+                                                        value="NO" checked>
+                                                    <label class="form-check-label" for="22">
+                                                        NO
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <hr>
+                        <h5 class="text-center">C. REVISIÓN DE CONDICIONES DE LA RUTA (Si es "NO", corregir el estado
+                            del
+                            ítem
+                            antes de iniciar la tarea).</h5>
+                        <hr>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-xl-12">
+                            <div class="table-responsive">
+                                <table class="table" id="tabla3">
+                                    <thead>
+                                        <tr>
+                                            <th>N°</th>
+                                            <th>Items de Control</th>
+                                            <th>Respuesta</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>12</strong></td>
+                                            <td><strong>Conoce la ruta que conducirá</strong></td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="p12" id="23"
+                                                        value="SI" checked>
+                                                    <label class="form-check-label" for="23">
+                                                        SI
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="p12" id="24"
+                                                        value="NO" checked>
+                                                    <label class="form-check-label" for="24">
+                                                        NO
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>13</strong></td>
+                                            <td><strong>Está al tanto de la velocidad máxima permitida</strong></td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="p13" id="25"
+                                                        value="SI" checked>
+                                                    <label class="form-check-label" for="25">
+                                                        SI
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="p13" id="26"
+                                                        value="NO" checked>
+                                                    <label class="form-check-label" for="26">
+                                                        NO
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>14</strong></td>
+                                            <td><strong>Conoce como realizar las marcaciones por Sistema</strong></td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="p14" id="27"
+                                                        value="SI" checked>
+                                                    <label class="form-check-label" for="27">
+                                                        SI
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="p14" id="28"
+                                                        value="NO" checked>
+                                                    <label class="form-check-label" for="28">
+                                                        NO
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div align="center">
+                    <img src="static\img\alerta.png" class="img-fluid" width="80%">
+                </div>
+                <hr>
+                <div align="center">
+                    <button onclick="mostrar()" id="guardar" class="btn btn-success">Guardar</button>
+                </div>
+                <hr>
+            </form>
+        </section>
+
+    </div>
+    <script src="static/js/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#postura").change(function (e) {
+                var postura = $(this).find(":selected");
+                $("#id").val($(postura).data("id"));
+                $("#idconductor").val($(postura).data("idconductor"));
+                $("#idconductor2").val($(postura).data("idconductor2"));
+                $("#idauxiliar").val($(postura).data("idauxiliar"));
+                $("#idbus").val($(postura).data("idbus"));
+                $("#conductor").val($(postura).data("conductor"));
+                $("#conductordos").val($(postura).data("conductordos"));
+                $("#auxiliar").val($(postura).data("auxiliar"));
+                $("#bus").val($(postura).data("bus"));
+
+            })
+            $("#guardar").click(function (e) {
+                var formulario = {}
+                $("#tabla1 > tbody > tr").each(function (index, value) {
+                    $(value).find("td")
+                    var numero = $($(value).find("td")[0]).text()
+                    var opciones = $(value).find("td")[2]
+                    var respuesta = $(opciones).find(".form-check-input:checked").val()
+                    console.log(respuesta)
+                    formulario[numero] = respuesta
+                })
+
+                $("#tabla2 > tbody > tr").each(function (index, value) {
+                    $(value).find("td")
+                    var numero = $($(value).find("td")[0]).text()
+                    var opciones = $(value).find("td")[2]
+                    var respuesta = $(opciones).find(".form-check-input:checked").val()
+                    console.log(respuesta)
+                    formulario[numero] = respuesta
+                })
+
+                $("#tabla3 > tbody > tr").each(function (index, value) {
+                    $(value).find("td")
+                    var numero = $($(value).find("td")[0]).text()
+                    var opciones = $(value).find("td")[2]
+                    var respuesta = $(opciones).find(".form-check-input:checked").val()
+                    console.log(respuesta)
+                    formulario[numero] = respuesta
+                })
+
+                let id = document.getElementById("id").value;
+                let idconductor = document.getElementById("idconductor").value;
+                let idconductor2 = document.getElementById("idconductor2").value;
+                let idauxiliar = document.getElementById("idauxiliar").value;
+                let idbus = document.getElementById("idbus").value;
+                let conductor = document.getElementById("conductor").value;
+                let conductordos = document.getElementById("conductordos").value;
+                let auxiliar = document.getElementById("auxiliar").value;
+                let bus = document.getElementById("bus").value;
+
+
+                var data = {
+                    id_principal: id,
+                    id_conductor: idconductor,
+                    id_conductor2: idconductor2,
+                    id_auxiliar: idauxiliar,
+                    bus_id: idbus,
+                    conductor: conductor,
+                    conductor2: conductordos,
+                    auxiliar: auxiliar,
+                    bus: bus,
+                    respuesta: JSON.stringify(formulario)
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "http://127.0.0.1:8000/api/postura/",
+                    data: data,
+                }).done(function () {
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'success',
+                        title: 'ART Completado',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+
+
+                });
+            })
+        })
+    </script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="static/js/script.js"></script>
+
+</body>
+
+</html>
